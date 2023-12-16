@@ -1,7 +1,10 @@
-package com.example.carrentbe;
+package com.example.carrentbe.serviceImplementation;
 
 
 
+import com.example.carrentbe.model.Car;
+import com.example.carrentbe.repository.CarRepository;
+import com.example.carrentbe.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

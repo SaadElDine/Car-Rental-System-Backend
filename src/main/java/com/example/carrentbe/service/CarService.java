@@ -1,6 +1,6 @@
-package com.example.carrentbe;
+package com.example.carrentbe.service;
 
-import com.example.carrentbe.Car;//yourpackage.model.Car;
+import com.example.carrentbe.model.Car;//yourpackage.model.Car;
 import java.util.List;
 
 public interface CarService {

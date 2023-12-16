@@ -1,9 +1,11 @@
-package com.example.carrentbe;
+package com.example.carrentbe.controller;
 
 //package com.yourpackage.controller;
 
 //import com.//yourpackage.model.Car;
 //import com.//yourpackage.service.CarService;
+import com.example.carrentbe.service.CarService;
+import com.example.carrentbe.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
