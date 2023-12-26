@@ -13,33 +13,34 @@ public class Car implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer carId;
+    private String plateId;
 
     private String model;
     private Integer year;
-    private String plateId;
+
     private String status;
+    private String color;
+    private String location;
+    private String imageUrl;
+    private double price;
 
     // Default constructor
     public Car() {
     }
 
     // Constructor with parameters
-    public Car(String model, Integer year, String plateId, String status) {
+    public Car(String model, Integer year, String plateId, String status, String color, String location, String imageUrl, double price) {
         this.model = model;
         this.year = year;
         this.plateId = plateId;
         this.status = status;
-    }
+        this.color = color;
+        this.location = location;
+        this.imageUrl = imageUrl;
+        this.price = price;
+   }
 
-    // Getters and Setters
-    public Integer getCarId() {
-        return carId;
-    }
 
-    public void setCarId(Integer carId) {
-        this.carId = carId;
-    }
 
     public String getModel() {
         return model;
@@ -47,6 +48,38 @@ public class Car implements Serializable {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Integer getYear() {
@@ -77,11 +110,14 @@ public class Car implements Serializable {
     @Override
     public String toString() {
         return "Car{" +
-                "carId=" + carId +
                 ", model='" + model + '\'' +
                 ", year=" + year +
                 ", plateId='" + plateId + '\'' +
                 ", status='" + status + '\'' +
+                ", color='" + color + '\'' +
+                ", location='" + location + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

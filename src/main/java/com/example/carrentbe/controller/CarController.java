@@ -1,11 +1,7 @@
 package com.example.carrentbe.controller;
 
-//package com.yourpackage.controller;
-
-//import com.//yourpackage.model.Car;
-//import com.//yourpackage.service.CarService;
-import com.example.carrentbe.service.CarService;
 import com.example.carrentbe.model.Car;
+import com.example.carrentbe.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/cars")
 public class CarController {
 
@@ -34,8 +31,8 @@ public class CarController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Car> getCarById(@PathVariable Integer id) {
-        Car car = carService.getCarById(id);
+    public ResponseEntity<Car> getCarByPlateId(@PathVariable Integer id) {
+        Car car = carService.getCarByPlateId(id);
         return car != null ? ResponseEntity.ok(car) : ResponseEntity.notFound().build();
     }
 
