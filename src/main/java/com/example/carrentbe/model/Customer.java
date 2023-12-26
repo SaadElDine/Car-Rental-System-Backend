@@ -1,7 +1,5 @@
 package com.example.carrentbe.model;
 
-
-
 import jakarta.persistence.*;
 import java.io.Serializable;
 
@@ -15,7 +13,8 @@ public class Customer implements Serializable {
     private String name;
     private String contactInfo;
     private String address;
-    private String accountInfo;
+    private String email;
+    private String password;
 
 
     // Getters
@@ -35,8 +34,8 @@ public class Customer implements Serializable {
         return address;
     }
 
-    public String getAccountInfo() {
-        return accountInfo;
+    public String getEmail() {
+        return email;
     }
 
     // Setters
@@ -56,8 +55,16 @@ public class Customer implements Serializable {
         this.address = address;
     }
 
-    public void setAccountInfo(String accountInfo) {
-        this.accountInfo = accountInfo;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String accountInfo) {
+        this.email = accountInfo;
     }
 
     // toString Method
@@ -68,7 +75,8 @@ public class Customer implements Serializable {
                 ", name='" + name + '\'' +
                 ", contactInfo='" + contactInfo + '\'' +
                 ", address='" + address + '\'' +
-                ", accountInfo='" + accountInfo + '\'' +
+                ", accountInfo='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
