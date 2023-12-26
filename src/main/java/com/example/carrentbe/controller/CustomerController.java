@@ -1,4 +1,5 @@
 package com.example.carrentbe.controller;
+
 import com.example.carrentbe.model.Customer;
 import com.example.carrentbe.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +12,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
-    private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    private CustomerService customerService;
 
-    @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        Customer createdCustomer = customerService.saveCustomer(customer);
-        return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
+    @PostMapping("/register")
+    public ResponseEntity<Customer> registerCustomer(@RequestBody Customer customer) {
+        Customer savedCustomer = customerService.registerCustomer(customer);
+
+        savedCustomer.setPassword(null); // Ensure the password is not sent back in the response
+        return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
+
     }
 
     @GetMapping
@@ -42,11 +43,14 @@ public class CustomerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
+        // Check if the customer ID in the path matches the ID in the request body
         if (!id.equals(customer.getCustomerId())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         Customer updatedCustomer = customerService.updateCustomer(customer);
         if (updatedCustomer != null) {
+            updatedCustomer.setPassword(null); // Again, ensure the password is not sent back
             return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -57,5 +61,16 @@ public class CustomerController {
     public ResponseEntity<Void> deleteCustomer(@PathVariable Integer id) {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> checkCustomerCredentials(@RequestBody Customer loginDetails) {
+        boolean isAuthentic = customerService.checkCustomerCredentials(loginDetails.getEmail(), loginDetails.getPassword());
+        if (isAuthentic) {
+            // You may want to return a token or a success message here
+            return new ResponseEntity<>("Login successful", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Login failed", HttpStatus.UNAUTHORIZED);
+        }
     }
 }

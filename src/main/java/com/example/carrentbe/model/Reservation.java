@@ -7,16 +7,22 @@ import java.util.Date;
 @Entity
 @Table(name = "Reservation")
 public class Reservation implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
     private Integer reservationId;
 
-    @Column(name = "car_id")
-    private Integer carId;
+
+
+
+    @Column(name = "plate_id")
+    private String plateId;
+
 
     @Column(name = "customer_id")
     private Integer customerId;
+
 
     @Temporal(TemporalType.DATE)
     @Column(name = "pickup_date")
@@ -34,8 +40,8 @@ public class Reservation implements Serializable {
         // Default constructor
     }
 
-    public Reservation(Integer carId, Integer customerId, Date pickUpDate, Date returnDate, String reservationStatus) {
-        this.carId = carId;
+    public Reservation(String plateId, Integer customerId, Date pickUpDate, Date returnDate, String reservationStatus) {
+        this.plateId = plateId;
         this.customerId = customerId;
         this.pickUpDate = pickUpDate;
         this.returnDate = returnDate;
@@ -51,12 +57,14 @@ public class Reservation implements Serializable {
         this.reservationId = reservationId;
     }
 
-    public Integer getCarId() {
-        return carId;
+
+
+    public String getPlateId() {
+        return plateId;
     }
 
-    public void setCarId(Integer carId) {
-        this.carId = carId;
+    public void setPlateId(String carId) {
+        this.plateId = carId;
     }
 
     public Integer getCustomerId() {
@@ -96,7 +104,7 @@ public class Reservation implements Serializable {
     public String toString() {
         return "Reservation{" +
                 "reservationId=" + reservationId +
-                ", carId=" + carId +
+                ", carId=" + plateId +
                 ", customerId=" + customerId +
                 ", pickUpDate=" + pickUpDate +
                 ", returnDate=" + returnDate +
