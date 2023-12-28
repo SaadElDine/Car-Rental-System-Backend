@@ -1,10 +1,12 @@
 package com.example.carrentbe.controller;
 
 import com.example.carrentbe.model.Car;
+import com.example.carrentbe.Mapping.SearchRequest;
 import com.example.carrentbe.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -20,6 +22,11 @@ public class CarController {
         this.carService = carService;
     }
 
+    @PostMapping("/search")
+    public ResponseEntity<List<Car>> searchCars(@RequestBody SearchRequest request) {
+        List<Car> cars = carService.searchCarsBySpecifications(request.getPlateId(), request.getModel(), request.getYear(), request.getPrice());
+        return ResponseEntity.ok(cars);
+    }
     @PostMapping
     public ResponseEntity<Car> addCar(@RequestBody Car car) {
         return ResponseEntity.ok(carService.saveCar(car));
