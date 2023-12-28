@@ -18,6 +18,7 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation) {
+        System.out.println(reservation); // Add this log to see the incoming reservation object
         Reservation newReservation = reservationService.saveReservation(reservation);
         return ResponseEntity.ok(newReservation);
     }

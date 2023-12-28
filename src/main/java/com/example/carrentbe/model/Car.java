@@ -35,7 +35,8 @@ public class Car implements Serializable {
         this.location = location;
         this.imageUrl = imageUrl;
         this.price = price;
-    }
+   }
+
 
 
 
