@@ -4,6 +4,8 @@ import com.example.carrentbe.model.Car;
 import java.util.List;
 
 public interface CarService {
+    List<Car> searchCarsBySpecifications(String plateId, String model, Integer year, Double price);
+
     Car saveCar(Car car); // Make sure new fields are persisted
     List<Car> getAllCars(); // Ensure new fields are included in the returned data
     Car getCarByPlateId(Integer carId); // Ensure new fields are included when fetching a car by ID

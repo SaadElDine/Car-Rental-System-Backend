@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
+
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+
     @Query(value = "SELECT c FROM Customer c WHERE c.email = :email")
     Optional<Customer> findByEmail(String email);
     @Query(value = "SELECT c FROM Customer c ")
@@ -26,6 +28,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
                              @Param("email") String email,
                              @Param("name") String name,
                              @Param("password") String password);
+
 
 
 }

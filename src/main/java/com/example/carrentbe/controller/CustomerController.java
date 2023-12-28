@@ -24,6 +24,8 @@ public class CustomerController {
 
     }
 
+
+
     @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers() {
         List<Customer> customers = customerService.getAllCustomers();
@@ -72,4 +74,6 @@ public class CustomerController {
             return new ResponseEntity<>("Login failed", HttpStatus.UNAUTHORIZED);
         }
     }
+
 }
+

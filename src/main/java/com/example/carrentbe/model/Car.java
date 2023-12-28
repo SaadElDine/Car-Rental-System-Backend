@@ -39,6 +39,7 @@ public class Car implements Serializable {
 
 
 
+
     public String getModel() {
         return model;
     }
