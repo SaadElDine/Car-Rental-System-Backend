@@ -19,7 +19,6 @@ public class CustomerController {
     @PostMapping("/register")
     public ResponseEntity<Customer> registerCustomer(@RequestBody Customer customer) {
         Customer savedCustomer = customerService.registerCustomer(customer);
-
         savedCustomer.setPassword(null); // Ensure the password is not sent back in the response
         return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
 

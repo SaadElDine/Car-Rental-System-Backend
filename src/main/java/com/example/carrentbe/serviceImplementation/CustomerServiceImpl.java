@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private final CustomerRepository customerRepository;
+    @Autowired
+    private final CustomerRepository customerRepository ;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
@@ -31,8 +32,11 @@ public class CustomerServiceImpl implements CustomerService {
             String encryptedPassword = passwordEncoder.encode(customer.getPassword());
             customer.setPassword(encryptedPassword);
 
+            customerRepository.saveCustByAbdelwahed( customer.getAddress(), customer.getContactInfo(), customer.getEmail(), customer.getName(), encryptedPassword);
+            // Fetch and return the saved customer
+            return customerRepository.findByEmail(customer.getEmail()).orElse(null);
             // Attempt to save the customer with the encrypted password
-            return customerRepository.save(customer);
+            //return customerRepository.saveCustByAbdelwahed(customer.getCustomerId(),customer.getAddress(),customer.getContactInfo(),customer.getEmail(),customer.getName(),customer.getPassword());
         } catch (DataIntegrityViolationException e) {
             // Handle the case where a duplicate key is being inserted.
             // This is a simplistic way to handle it. In a real scenario, you might want
@@ -50,7 +54,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> getAllCustomers() {
         // Retrieve all customers and clear their passwords before returning
-        return customerRepository.findAll().stream().peek(customer -> customer.setPassword(null)).collect(Collectors.toList());
+        return customerRepository.getAllCustomersFromDB().stream()
+                .peek(customer -> customer.setPassword(null))
+                .collect(Collectors.toList());
+        //return customerRepository.findAll().stream().peek(customer -> customer.setPassword(null)).collect(Collectors.toList());
     }
 
     @Override
