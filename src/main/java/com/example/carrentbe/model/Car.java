@@ -1,10 +1,7 @@
 package com.example.carrentbe.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 @Entity
@@ -12,7 +9,7 @@ import java.io.Serializable;
 public class Car implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "plateid")
     private String plateId;
 
     private String model;
@@ -38,7 +35,7 @@ public class Car implements Serializable {
         this.location = location;
         this.imageUrl = imageUrl;
         this.price = price;
-   }
+    }
 
 
 
