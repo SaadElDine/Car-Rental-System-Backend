@@ -26,6 +26,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<Car> searchCarsBySpecifications(String plateId, String model, Integer year, Double maxPrice) {
+        System.out.println(plateId);
+        System.out.println(model);
+        System.out.println(year);
+        System.out.println(maxPrice);
+        return carRepository.searchCarsBySpecifications(plateId, model, year, maxPrice);
+    }
+
+
+    @Override
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }

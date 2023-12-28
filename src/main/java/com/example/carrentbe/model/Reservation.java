@@ -14,14 +14,17 @@ public class Reservation implements Serializable {
     private Integer reservationId;
 
 
+
+
     @Column(name = "plate_id")
-    private Integer plateId;
+    private String plateId;
 
 
     @Column(name = "customer_id")
     private Integer customerId;
 
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "pickup_date")
     private Date pickUpDate;
 
@@ -37,7 +40,7 @@ public class Reservation implements Serializable {
         // Default constructor
     }
 
-    public Reservation(Integer plateId, Integer customerId, Date pickUpDate, Date returnDate, String reservationStatus) {
+    public Reservation(String plateId, Integer customerId, Date pickUpDate, Date returnDate, String reservationStatus) {
         this.plateId = plateId;
         this.customerId = customerId;
         this.pickUpDate = pickUpDate;
@@ -54,11 +57,13 @@ public class Reservation implements Serializable {
         this.reservationId = reservationId;
     }
 
-    public Integer getPlateId() {
+
+
+    public String getPlateId() {
         return plateId;
     }
 
-    public void setPlateId(Integer carId) {
+    public void setPlateId(String carId) {
         this.plateId = carId;
     }
 

@@ -1,7 +1,5 @@
 package com.example.carrentbe.model;
 
-
-
 import jakarta.persistence.*;
 import java.io.Serializable;
 
