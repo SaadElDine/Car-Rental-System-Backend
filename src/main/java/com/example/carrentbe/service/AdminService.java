@@ -19,7 +19,7 @@ public interface AdminService {
 
     // Additional methods specific to Admin can be added here
     // For example, changing the password of an admin
-    Admin changeAdminPassword(Long id, String newPassword);
+
 
     // Retrieve an admin by email if needed
     Admin getAdminByEmail(String email);
