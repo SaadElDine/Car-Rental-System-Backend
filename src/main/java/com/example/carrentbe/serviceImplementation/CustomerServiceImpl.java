@@ -63,7 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .peek(customer -> customer.setPassword(null))
                 .collect(Collectors.toList());
         //return customerRepository.findAll().stream().peek(customer -> customer.setPassword(null)).collect(Collectors.toList());
-
+    }
 
     @Override
     public Customer getCustomerById(Integer customerId) {
