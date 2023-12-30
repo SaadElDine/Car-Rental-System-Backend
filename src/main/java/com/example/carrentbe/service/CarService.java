@@ -1,6 +1,9 @@
 package com.example.carrentbe.service;
 
+import com.example.carrentbe.DTO.CarAvailabilityDTO;
 import com.example.carrentbe.model.Car;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface CarService {
@@ -11,4 +14,5 @@ public interface CarService {
     Car getCarByPlateId(Integer carId); // Ensure new fields are included when fetching a car by ID
     Car updateCar(Car car); // Ensure new fields are updated
     void deleteCar(Integer carId); // Handle deletion, considering any new field implications
+    public List<CarAvailabilityDTO> getCarAvailabilityOnDate(LocalDate date);
 }

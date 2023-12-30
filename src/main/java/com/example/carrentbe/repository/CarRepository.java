@@ -1,5 +1,6 @@
 package com.example.carrentbe.repository;
 
+import com.example.carrentbe.DTO.CarAvailabilityDTO;
 import com.example.carrentbe.model.Car;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -35,6 +37,18 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
                 @Param("model") String model,
                 @Param("year") Integer year,
                 @Param("maxPrice") Double maxPrice);
+
+    @Query("SELECT new com.example.carrentbe.DTO.CarAvailabilityDTO(" +
+            "c.plateId, " +
+            "(SELECT CASE WHEN (COUNT(r) > 0) THEN false ELSE true END " +
+            "FROM Reservation r " +
+            "WHERE r.plateId = c.plateId AND :date BETWEEN r.pickUpDate AND r.returnDate) " +
+            ") " +
+            "FROM Car c")
+    List<CarAvailabilityDTO> findCarAvailabilityByDate(@Param("date") LocalDate date);
+
+
+
 
 }
 
