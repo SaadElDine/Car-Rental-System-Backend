@@ -11,9 +11,6 @@ import java.util.List;
 @Service
 public class ReportService {
     private final ReportRepository reportRepository;
-    public List<ReservationReportDTO> findAllReservationsByCarAndDateRange(String plateId, Date startDate, Date endDate) {
-        return reportRepository.findAllReservationsByCarAndDateRange(plateId, startDate, endDate);
-    }
 
     @Autowired
     public ReportService(ReportRepository reportRepository) {
@@ -21,7 +18,25 @@ public class ReportService {
     }
 
     public List<ReservationReportDTO> findAllReservationReports() {
-        // Use the ReportRepository to fetch all report data
+        // Ensure this method correctly fetches all reservation reports.
         return reportRepository.findAllReservationReports();
     }
+
+    public List<ReservationReportDTO> findAllReservationsByCarAndDateRange(String plateId, Date startDate, Date endDate) {
+        // Verify that the repository method is being called correctly with the right parameters.
+        return reportRepository.findAllReservationsByCarAndDateRange(plateId, startDate, endDate);
+    }
+
+    public List<ReservationReportDTO> findAllReservationsByCustomerAndDateRange(Integer customerId, Date startDate, Date endDate) {
+        // Ensure this method is properly implemented and corresponds to the method in the repository.
+        return reportRepository.findAllReservationsByCustomerAndDateRange(customerId, startDate, endDate);
+    }
+
+    public List<ReservationReportDTO> findAllReservationsWithPriceByDateRange(Date startDate, Date endDate) {
+        // This is the method referenced in line 56 of your controller.
+        // Verify that it correctly interacts with the repository.
+        return reportRepository.findAllReservationsWithPriceByDateRange(startDate, endDate);
+    }
+
+    // Add any other service methods as necessary.
 }
