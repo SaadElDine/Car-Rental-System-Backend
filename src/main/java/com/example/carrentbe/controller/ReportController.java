@@ -3,10 +3,13 @@ package com.example.carrentbe.controller;
 import com.example.carrentbe.DTO.ReservationReportDTO;
 import com.example.carrentbe.serviceImplementation.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -22,5 +25,16 @@ public class ReportController {
     @GetMapping("/reservations")
     public List<ReservationReportDTO> getAllReservationReports() {
         return reportService.findAllReservationReports();
+    }
+
+    @GetMapping("/reservations2")
+    public List<ReservationReportDTO> getReservationReportsByCarAndDateRange(
+            @RequestParam String plateId,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
+        System.out.println(plateId);
+        System.out.println(fromDate);
+        System.out.println(toDate);
+        return reportService.findAllReservationsByCarAndDateRange(plateId, fromDate, toDate);
     }
 }
