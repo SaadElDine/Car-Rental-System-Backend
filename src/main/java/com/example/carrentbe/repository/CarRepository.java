@@ -20,7 +20,8 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
             ":#{#car.model}, :#{#car.price}, :#{#car.status}, :#{#car.year})", nativeQuery = true)
     void insertCar(@Param("car") Car car);
 
-
+    @Query(value = "SELECT * FROM cars WHERE plateid = :plateId", nativeQuery = true)
+    Car findbyPlateId(@Param("plateId") String plateId);
 
     @Query(value = "SELECT * FROM Cars c WHERE " +
             "(:plateId IS null or :plateId='' or c.plateId = :plateId) AND" +
