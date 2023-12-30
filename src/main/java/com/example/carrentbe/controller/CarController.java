@@ -64,5 +64,6 @@ public class CarController {
         List<CarAvailabilityDTO> carAvailabilityList = carService.getCarAvailabilityOnDate(date);
         return ResponseEntity.ok(carAvailabilityList);
     }
+    //3adelto 3ala el car controller
 
 }

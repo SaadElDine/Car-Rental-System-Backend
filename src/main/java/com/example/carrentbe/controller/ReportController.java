@@ -4,6 +4,7 @@ import com.example.carrentbe.DTO.ReservationReportDTO;
 import com.example.carrentbe.serviceImplementation.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,4 +38,22 @@ public class ReportController {
         System.out.println(toDate);
         return reportService.findAllReservationsByCarAndDateRange(plateId, fromDate, toDate);
     }
+
+    @GetMapping("/reservations/by-customer")
+    public ResponseEntity<List<ReservationReportDTO>> getReservationsByCustomerAndDateRange(
+            @RequestParam Integer customerId,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        List<ReservationReportDTO> reservations = reportService.findAllReservationsByCustomerAndDateRange(customerId, startDate, endDate);
+        return ResponseEntity.ok(reservations);
+    }
+
+    @GetMapping("/reservation-duration-price")
+    public ResponseEntity<List<ReservationReportDTO>> getReservationDurationPriceReport(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        List<ReservationReportDTO> reservationPrices = reportService.findAllReservationsWithPriceByDateRange(startDate, endDate);
+        return ResponseEntity.ok(reservationPrices);
+    }
+
 }
