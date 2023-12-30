@@ -1,15 +1,18 @@
 package com.example.carrentbe.controller;
 
+import com.example.carrentbe.DTO.CarAvailabilityDTO;
 import com.example.carrentbe.model.Car;
 
 import com.example.carrentbe.Mapping.SearchRequest;
 import com.example.carrentbe.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -56,4 +59,10 @@ public class CarController {
         carService.deleteCar(id);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/availability")
+    public ResponseEntity<List<CarAvailabilityDTO>> getCarAvailability(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List<CarAvailabilityDTO> carAvailabilityList = carService.getCarAvailabilityOnDate(date);
+        return ResponseEntity.ok(carAvailabilityList);
+    }
+
 }
