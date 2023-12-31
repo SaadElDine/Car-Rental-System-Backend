@@ -16,10 +16,10 @@ public class ReservationServiceImpl implements ReservationService {
         this.reservationRepository = reservationRepository;
     }
 
-    @Override
-    public Reservation saveReservation(Reservation reservation) {
-        return reservationRepository.save(reservation);
-    }
+    //@Override
+    //public Reservation saveReservation(Reservation reservation) {
+    //    return reservationRepository.save(reservation);
+    //}
 
     @Override
     public List<Reservation> getAllReservations() {
@@ -40,6 +40,22 @@ public class ReservationServiceImpl implements ReservationService {
             return null;
         }
     }
+    public Reservation saveReservation(Reservation reservation) {
+        // Check for conflicting reservations
+        List<Reservation> conflicts = reservationRepository.findConflictingReservations(
+                reservation.getPlateId(),
+                reservation.getPickUpDate(),
+                reservation.getReturnDate());
+
+        if (conflicts.isEmpty()) {
+            // No conflicts, safe to save
+            return reservationRepository.save(reservation);
+        } else {
+            // Handle conflict, perhaps throw an exception or return a specific type
+            throw new IllegalStateException("Conflict with an existing reservation.");
+        }
+    }
+
 
     @Override
     public void deleteReservation(Integer reservationId) {

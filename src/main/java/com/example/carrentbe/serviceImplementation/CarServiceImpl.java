@@ -2,12 +2,14 @@ package com.example.carrentbe.serviceImplementation;
 
 
 
+import com.example.carrentbe.DTO.CarAvailabilityDTO;
 import com.example.carrentbe.model.Car;
 import com.example.carrentbe.repository.CarRepository;
 import com.example.carrentbe.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -21,8 +23,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car saveCar(Car car) {
-        return carRepository.save(car);
+    public void saveCar(Car car) {
+        carRepository.insertCar(car);
     }
 
     @Override
@@ -34,6 +36,10 @@ public class CarServiceImpl implements CarService {
         return carRepository.searchCarsBySpecifications(plateId, model, year, maxPrice);
     }
 
+    @Override
+    public List<CarAvailabilityDTO> getCarAvailabilityOnDate(LocalDate date) {
+        return carRepository.findCarAvailabilityByDate(date);
+    }
 
     @Override
     public List<Car> getAllCars() {

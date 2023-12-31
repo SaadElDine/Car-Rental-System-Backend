@@ -1,15 +1,30 @@
 package com.example.carrentbe.repository;
 
+import com.example.carrentbe.DTO.CarAvailabilityDTO;
 import com.example.carrentbe.model.Car;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO cars (plateid, color, imageUrl, location, model, price, status, year) " +
+            "VALUES (:#{#car.plateId}, :#{#car.color}, :#{#car.imageUrl}, :#{#car.location}, " +
+            ":#{#car.model}, :#{#car.price}, :#{#car.status}, :#{#car.year})", nativeQuery = true)
+    void insertCar(@Param("car") Car car);
+
+    @Query(value = "SELECT * FROM cars WHERE plateid = :plateId", nativeQuery = true)
+    Car findbyPlateId(@Param("plateId") String plateId);
+
     @Query(value = "SELECT * FROM Cars c WHERE " +
             "(:plateId IS null or :plateId='' or c.plateId = :plateId) AND" +
             "(:model IS null  or :model='' or c.model = :model) AND " +
@@ -22,6 +37,18 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
                 @Param("model") String model,
                 @Param("year") Integer year,
                 @Param("maxPrice") Double maxPrice);
+
+    @Query("SELECT new com.example.carrentbe.DTO.CarAvailabilityDTO(" +
+            "c.plateId, " +
+            "(SELECT CASE WHEN (COUNT(r) > 0) THEN false ELSE true END " +
+            "FROM Reservation r " +
+            "WHERE r.plateId = c.plateId AND :date BETWEEN r.pickUpDate AND r.returnDate) " +
+            ") " +
+            "FROM Car c")
+    List<CarAvailabilityDTO> findCarAvailabilityByDate(@Param("date") LocalDate date);
+
+
+
 
 }
 

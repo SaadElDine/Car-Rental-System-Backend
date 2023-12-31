@@ -62,6 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.getAllCustomersFromDB().stream()
                 .peek(customer -> customer.setPassword(null))
                 .collect(Collectors.toList());
+    }
         //return customerRepository.findAll().stream().peek(customer -> customer.setPassword(null)).collect(Collectors.toList());
 
 
