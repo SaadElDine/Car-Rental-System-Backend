@@ -29,6 +29,14 @@ public class Reservation implements Serializable {
     @Column(name = "plateId")
     private String plateId;
 
+    public String getPlateId() {
+        return plateId;
+    }
+
+    public void setPlateId(String plateId) {
+        this.plateId = plateId;
+    }
+
     // Constructors
     public Reservation() {
         // Default constructor
