@@ -39,7 +39,7 @@ public class ReportController {
         return reportService.findAllReservationsByCarAndDateRange(plateId, fromDate, toDate);
     }
 
-    @GetMapping("/reservations/by-customer")
+    @GetMapping("/reservation4")
     public ResponseEntity<List<ReservationReportDTO>> getReservationsByCustomerAndDateRange(
             @RequestParam Integer customerId,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
@@ -48,7 +48,7 @@ public class ReportController {
         return ResponseEntity.ok(reservations);
     }
 
-    @GetMapping("/reservation-duration-price")
+    @GetMapping("/reservation5")
     public ResponseEntity<List<ReservationReportDTO>> getReservationDurationPriceReport(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
