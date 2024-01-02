@@ -1,6 +1,8 @@
 package com.example.carrentbe.controller;
 
+import com.example.carrentbe.DTO.AdvancedSearchResult;
 import com.example.carrentbe.DTO.CarAvailabilityDTO;
+import com.example.carrentbe.Mapping.CarUpdateRequest;
 import com.example.carrentbe.model.Car;
 
 import com.example.carrentbe.Mapping.SearchRequest;
@@ -63,6 +65,21 @@ public class CarController {
     public ResponseEntity<List<CarAvailabilityDTO>> getCarAvailability(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         List<CarAvailabilityDTO> carAvailabilityList = carService.getCarAvailabilityOnDate(date);
         return ResponseEntity.ok(carAvailabilityList);
+    }
+
+    @GetMapping("/advanced")
+    public List<AdvancedSearchResult> advancedSearch(@RequestParam("searchTerm") String searchTerm) {
+        return carService.performAdvancedSearch(searchTerm);
+    }
+
+    @PostMapping("/updatecar")
+    public String updateCarStatus(@RequestBody CarUpdateRequest request) {
+        int updatedRows = carService.updateCarStatus(request.getPlateId(), request.getNewStatus());
+        if (updatedRows > 0) {
+            return "Car status updated successfully";
+        } else {
+            return "Failed to update car status";
+        }
     }
     //3adelto 3ala el car controller
 

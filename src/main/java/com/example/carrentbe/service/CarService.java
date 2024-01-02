@@ -1,5 +1,6 @@
 package com.example.carrentbe.service;
 
+import com.example.carrentbe.DTO.AdvancedSearchResult;
 import com.example.carrentbe.DTO.CarAvailabilityDTO;
 import com.example.carrentbe.model.Car;
 
@@ -15,4 +16,10 @@ public interface CarService {
     Car updateCar(Car car); // Ensure new fields are updated
     void deleteCar(Integer carId); // Handle deletion, considering any new field implications
     public List<CarAvailabilityDTO> getCarAvailabilityOnDate(LocalDate date);
+
+    List<AdvancedSearchResult> performAdvancedSearch(String searchTerm);
+
+    int updateCarStatus(String plateId, String newStatus);
+
+
 }

@@ -27,9 +27,9 @@ public class ReportService {
         return reportRepository.findAllReservationsByCarAndDateRange(plateId, startDate, endDate);
     }
 
-    public List<ReservationReportDTO> findAllReservationsByCustomerAndDateRange(Integer customerId, Date startDate, Date endDate) {
+    public List<ReservationReportDTO> findAllReservationsByCustomerAndDateRange(Integer customerId) {
         // Ensure this method is properly implemented and corresponds to the method in the repository.
-        return reportRepository.findAllReservationsByCustomerAndDateRange(customerId, startDate, endDate);
+        return reportRepository.findAllReservationsByCustomerAndDateRange(customerId);
     }
 
     public List<ReservationReportDTO> findAllReservationsWithPriceByDateRange(Date startDate, Date endDate) {

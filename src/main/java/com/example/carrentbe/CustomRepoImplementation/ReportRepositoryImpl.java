@@ -51,20 +51,15 @@ public class ReportRepositoryImpl implements ReportRepository {
 
 
     @Override
-    public List<ReservationReportDTO> findAllReservationsByCustomerAndDateRange(Integer customerId, Date startDate, Date endDate) {
+    public List<ReservationReportDTO> findAllReservationsByCustomerAndDateRange(Integer customerId) {
         String jpql = "SELECT new com.example.carrentbe.DTO.ReservationReportDTO(" +
                 "r.reservationId, r.customerId, r.pickUpDate, r.returnDate, r.reservationStatus, " +
                 "c.plateId, c.color, c.model, c.price, c.status) " +
                 "FROM Reservation r, Car c " + // Implicit join on Car
                 "WHERE r.plateId = c.plateId " + // Use the plateId from Reservation to join
-                "AND r.customerId = :customerId " +
-                "AND ((r.pickUpDate BETWEEN :startDate AND :endDate) OR " +
-                "(r.returnDate BETWEEN :startDate AND :endDate) OR " +
-                "(r.pickUpDate <= :startDate AND r.returnDate >= :endDate))";
+                "AND r.customerId = :customerId";
         Query query = entityManager.createQuery(jpql, ReservationReportDTO.class);
         query.setParameter("customerId", customerId);
-        query.setParameter("startDate", startDate);
-        query.setParameter("endDate", endDate);
         return query.getResultList();
     }
 

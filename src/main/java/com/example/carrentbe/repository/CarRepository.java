@@ -1,5 +1,6 @@
 package com.example.carrentbe.repository;
 
+import com.example.carrentbe.DTO.AdvancedSearchResult;
 import com.example.carrentbe.DTO.CarAvailabilityDTO;
 import com.example.carrentbe.model.Car;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
+
+
 
     @Modifying
     @Transactional
@@ -47,8 +50,31 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
             "FROM Car c")
     List<CarAvailabilityDTO> findCarAvailabilityByDate(@Param("date") LocalDate date);
 
+    @Query("SELECT new com.example.carrentbe.DTO.AdvancedSearchResult(c, cust, r) " +
+            "FROM Car c " +
+            "LEFT JOIN Reservation r ON c.plateId = r.plateId " +
+            "LEFT JOIN Customer cust ON cust.customerId = r.customerId " +
+            "WHERE " +
+            "   LOWER(c.plateId) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "   LOWER(c.color) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "   LOWER(c.model) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "   LOWER(c.location) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "   LOWER(c.status) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "   LOWER(cust.name) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "   LOWER(cust.address) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "   LOWER(r.reservationStatus) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "   LOWER(cust.email) LIKE LOWER(CONCAT('%', :searchTerm, '%'))  ")
+    List<AdvancedSearchResult> advancedSearch(@Param("searchTerm") String searchTerm);
 
-
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Cars SET status = :newStatus WHERE plateid = :plateId", nativeQuery = true)
+    int updateCarStatus(String plateId, String newStatus);
 
 }
+
+
+
+
+
 

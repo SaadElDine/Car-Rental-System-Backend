@@ -12,7 +12,7 @@ public interface ReportRepository {
     // New method with date range and plateId
     List<ReservationReportDTO> findAllReservationsByCarAndDateRange(String plateId, Date startDate, Date endDate);
 
-    List<ReservationReportDTO> findAllReservationsByCustomerAndDateRange(Integer customerId, Date startDate, Date endDate);
+    List<ReservationReportDTO> findAllReservationsByCustomerAndDateRange(Integer customerId);
     List<ReservationReportDTO> findAllReservationsWithPriceByDateRange(Date startDate, Date endDate);
 
 }
