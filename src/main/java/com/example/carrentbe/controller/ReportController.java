@@ -41,10 +41,9 @@ public class ReportController {
 
     @GetMapping("/reservation4")
     public ResponseEntity<List<ReservationReportDTO>> getReservationsByCustomerAndDateRange(
-            @RequestParam Integer customerId,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        List<ReservationReportDTO> reservations = reportService.findAllReservationsByCustomerAndDateRange(customerId, startDate, endDate);
+            @RequestParam Integer customerId)
+            {
+        List<ReservationReportDTO> reservations = reportService.findAllReservationsByCustomerAndDateRange(customerId);
         return ResponseEntity.ok(reservations);
     }
 

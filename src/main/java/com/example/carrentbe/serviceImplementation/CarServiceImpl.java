@@ -2,6 +2,7 @@ package com.example.carrentbe.serviceImplementation;
 
 
 
+import com.example.carrentbe.DTO.AdvancedSearchResult;
 import com.example.carrentbe.DTO.CarAvailabilityDTO;
 import com.example.carrentbe.model.Car;
 import com.example.carrentbe.repository.CarRepository;
@@ -37,6 +38,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<AdvancedSearchResult> performAdvancedSearch(String searchTerm) {
+        return carRepository.advancedSearch(searchTerm);
+    }
+
+    @Override
     public List<CarAvailabilityDTO> getCarAvailabilityOnDate(LocalDate date) {
         return carRepository.findCarAvailabilityByDate(date);
     }
@@ -59,5 +65,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public void deleteCar(Integer carId) {
         carRepository.deleteById(carId);
+    }
+
+    @Override
+    public int updateCarStatus(String plateId, String newStatus) {
+        return carRepository.updateCarStatus(plateId, newStatus);
     }
 }
